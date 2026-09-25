@@ -1,10 +1,22 @@
 import FilterBar from './FilterBar'
+import ExerciseCard from './ExerciseCard'
+import { EXERCISES } from '../data/exercises.js'
 
-function ExerciseLibrary() {
+function ExerciseLibrary({ plan, onAddToPlan }) {
   return (
     <div>
       <FilterBar />
-      <div>Exercise Library</div>
+      {EXERCISES.map((exercise) => {
+        const isAdded = plan.some((item) => item.id === exercise.id)
+        return (
+          <ExerciseCard
+            key={exercise.id}
+            exercise={exercise}
+            isAdded={isAdded}
+            onAdd={() => onAddToPlan(exercise)}
+          />
+        )
+      })}
     </div>
   )
 }
