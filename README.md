@@ -9,4 +9,4 @@ npm install
 npm run dev
 ```
 
-Live URL: (added after Netlify deploy)
+Live URL: https://csc436-gym-project2.netlify.app
