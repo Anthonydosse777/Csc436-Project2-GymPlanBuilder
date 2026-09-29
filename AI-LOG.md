@@ -8,6 +8,7 @@ In the gym-plan-builder project, create a new file at src/data/exercises.js.
 Export a constant named EXERCISES as an array of at least 16 exercise objects, 
 covering these four muscle groups evenly (4 each): "Push", "Pull", "Legs", "Core".
 
+
 Each object must have these exact fields:
 - id: a unique string (e.g. "push-01", "pull-01", "legs-01", "core-01")
 - name: string, the real exercise name (e.g. "Barbell Bench Press")
@@ -47,3 +48,69 @@ Then update src/App.jsx to:
 Keep every component's JSX minimal — this is just scaffolding the file structure and 
 import chain so everything renders without console errors. Do not add styling or real 
 logic yet. Do not modify src/data/exercises.js.
+
+## 2026-09-25
+In the gym-plan-builder React project, wire up the "add to plan" feature using lifted state.
+
+1. In src/App.jsx:
+   - Add a useState for "plan", initialized as an empty array []
+   - Write a function handleAddToPlan(exercise) that adds the exercise to the plan array 
+     only if its id isn't already in there (prevent duplicates), using a new array (no push/mutation)
+   - Write a function handleRemoveFromPlan(exerciseId) that returns a new plan array with 
+     that id filtered out
+   - Pass "plan" and "onAddToPlan" (handleAddToPlan) as props to ExerciseLibrary
+   - Pass "plan" and "onRemoveFromPlan" (handleRemoveFromPlan) as props to PlanPanel
+
+2. In src/components/ExerciseLibrary.jsx:
+   - Accept new props "plan" and "onAddToPlan"
+   - For each exercise rendered, compute isAdded by checking if plan contains an item 
+     with that exercise's id
+   - Pass isAdded and onAdd={() => onAddToPlan(exercise)} to each ExerciseCard
+
+3. In src/components/ExerciseCard.jsx:
+   - Render a <button> that calls onAdd when clicked
+   - If isAdded is true, the button should say "Added ✓" and be disabled
+   - If isAdded is false, the button should say "Add to Plan"
+
+4. In src/components/PlanPanel.jsx:
+   - Accept new props "plan" and "onRemoveFromPlan"
+   - If plan.length is 0, render a message like "Your plan is empty. Add exercises from 
+     the library." (this is our conditional rendering requirement)
+   - If plan.length is greater than 0, render the plan using .map(), one <PlanItem> per 
+     exercise, using exercise.id as the key
+   - Pass each exercise and a function to remove it (onRemove={() => onRemoveFromPlan(exercise.id)}) 
+     to PlanItem
+   - Still render <PlanSummary plan={plan} /> below the list
+
+5. In src/components/PlanItem.jsx:
+   - Display the exercise's name
+   - Render a "Remove" button that calls the onRemove prop when clicked
+
+Do not add styling yet. Do not modify FilterBar.jsx, PlanSummary.jsx, or exercises.js.
+Never mutate state directly — always create new arrays.
+
+## 2026-09-28
+Prompt:
+In the gym-plan-builder React project, wire up search and filtering in the exercise library.
+
+1. In src/components/ExerciseLibrary.jsx:
+   - Add a useState for "searchTerm", initialized as an empty string ""
+   - Add a useState for "activeGroup", initialized as "All"
+   - Add a controlled <input> above the exercise list:
+     - type="text", placeholder="Search exercises..."
+     - value={searchTerm}
+     - onChange updates searchTerm via setSearchTerm(e.target.value)
+   - Filter EXERCISES before mapping: an exercise should show only if
+     (activeGroup === "All" OR exercise.muscleGroup === activeGroup)
+     AND its name includes searchTerm (case-insensitive)
+   - If the filtered list is empty, render a message like "No exercises match your search."
+     (conditional rendering)
+   - Pass "activeGroup" and a function "onSelect" (that calls setActiveGroup) as props to FilterBar
+
+2. In src/components/FilterBar.jsx:
+   - Render one button per group: "All", "Push", "Pull", "Legs", "Core"
+   - Each button calls onSelect(group) when clicked
+   - The button matching the current activeGroup prop should visually indicate it's active 
+     (e.g. add a class name like "active" — no need for real styling yet, just apply the class)
+
+Do not modify ExerciseCard.jsx, PlanPanel.jsx, PlanItem.jsx, PlanSummary.jsx, App.jsx, or exercises.js.
