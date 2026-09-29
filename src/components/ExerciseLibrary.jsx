@@ -1,22 +1,43 @@
+import { useState } from 'react'
 import FilterBar from './FilterBar'
 import ExerciseCard from './ExerciseCard'
 import { EXERCISES } from '../data/exercises.js'
 
 function ExerciseLibrary({ plan, onAddToPlan }) {
+  const [searchTerm, setSearchTerm] = useState('')
+  const [activeGroup, setActiveGroup] = useState('All')
+
+  const normalizedSearch = searchTerm.toLowerCase()
+  const filteredExercises = EXERCISES.filter(
+    (exercise) =>
+      (activeGroup === 'All' || exercise.muscleGroup === activeGroup) &&
+      exercise.name.toLowerCase().includes(normalizedSearch)
+  )
+
   return (
     <div>
-      <FilterBar />
-      {EXERCISES.map((exercise) => {
-        const isAdded = plan.some((item) => item.id === exercise.id)
-        return (
-          <ExerciseCard
-            key={exercise.id}
-            exercise={exercise}
-            isAdded={isAdded}
-            onAdd={() => onAddToPlan(exercise)}
-          />
-        )
-      })}
+      <FilterBar activeGroup={activeGroup} onSelect={(group) => setActiveGroup(group)} />
+      <input
+        type="text"
+        placeholder="Search exercises..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
+      {filteredExercises.length === 0 ? (
+        <p>No exercises match your search.</p>
+      ) : (
+        filteredExercises.map((exercise) => {
+          const isAdded = plan.some((item) => item.id === exercise.id)
+          return (
+            <ExerciseCard
+              key={exercise.id}
+              exercise={exercise}
+              isAdded={isAdded}
+              onAdd={() => onAddToPlan(exercise)}
+            />
+          )
+        })
+      )}
     </div>
   )
 }
