@@ -114,3 +114,36 @@ In the gym-plan-builder React project, wire up search and filtering in the exerc
      (e.g. add a class name like "active" — no need for real styling yet, just apply the class)
 
 Do not modify ExerciseCard.jsx, PlanPanel.jsx, PlanItem.jsx, PlanSummary.jsx, App.jsx, or exercises.js.
+
+## 2026-09-29
+Prompt:
+In the gym-plan-builder React project, add a form for users to create their own custom exercises.
+
+1. Create src/components/AddExerciseForm.jsx:
+   - A form with controlled inputs (all values in useState, no defaultValue):
+     - Text input for "name" (required)
+     - <select> for "muscleGroup" with options: Push, Pull, Legs, Core
+     - Text input for "equipment" (e.g. Barbell, Dumbbell, Bodyweight, Machine, Cable)
+     - <select> for "difficulty" with options: Beginner, Intermediate, Advanced
+     - Text input for "description" (required)
+   - A submit button labeled "Add Exercise"
+   - On submit (handle via onSubmit, call e.preventDefault()):
+     - If name or description is empty, do not submit — show a small inline message 
+       like "Name and description are required." (conditional rendering)
+     - Otherwise, build an exercise object with a unique id (use something like 
+       `custom-${Date.now()}`), and call a prop function called onAddExercise with 
+       that object
+     - After successful submit, clear all the form fields back to empty/default
+
+2. In src/components/ExerciseLibrary.jsx:
+   - Add a useState called "customExercises", initialized as an empty array []
+   - Write a function handleAddExercise(exercise) that adds the new exercise to 
+     customExercises using a new array (no mutation)
+   - Combine EXERCISES and customExercises into one array before filtering/mapping 
+     (so custom exercises appear in the list, are searchable, and filterable, exactly 
+     like the built-in ones)
+   - Render <AddExerciseForm onAddExercise={handleAddExercise} /> above the exercise list, 
+     below the search/filter controls
+
+Do not modify App.jsx, PlanPanel.jsx, PlanItem.jsx, PlanSummary.jsx, or exercises.js.
+Never mutate arrays directly — always create new ones.
