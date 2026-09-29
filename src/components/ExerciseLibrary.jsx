@@ -1,14 +1,21 @@
 import { useState } from 'react'
 import FilterBar from './FilterBar'
 import ExerciseCard from './ExerciseCard'
+import AddExerciseForm from './AddExerciseForm'
 import { EXERCISES } from '../data/exercises.js'
 
 function ExerciseLibrary({ plan, onAddToPlan }) {
   const [searchTerm, setSearchTerm] = useState('')
   const [activeGroup, setActiveGroup] = useState('All')
+  const [customExercises, setCustomExercises] = useState([])
 
+  function handleAddExercise(exercise) {
+    setCustomExercises((prev) => [...prev, exercise])
+  }
+
+  const allExercises = [...EXERCISES, ...customExercises]
   const normalizedSearch = searchTerm.toLowerCase()
-  const filteredExercises = EXERCISES.filter(
+  const filteredExercises = allExercises.filter(
     (exercise) =>
       (activeGroup === 'All' || exercise.muscleGroup === activeGroup) &&
       exercise.name.toLowerCase().includes(normalizedSearch)
@@ -23,6 +30,7 @@ function ExerciseLibrary({ plan, onAddToPlan }) {
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
+      <AddExerciseForm onAddExercise={handleAddExercise} />
       {filteredExercises.length === 0 ? (
         <p>No exercises match your search.</p>
       ) : (
