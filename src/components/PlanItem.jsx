@@ -1,8 +1,8 @@
 function PlanItem({ item, onUpdate, onRemove, onMove }) {
   return (
-    <div>
-      <span>{item.name}</span>
-      <button onClick={onRemove}>Remove</button>
+    <div className="plan-item">
+      <span className="plan-item-name">{item.name}</span>
+      <button className="remove-button" onClick={onRemove}>Remove</button>
     </div>
   )
 }

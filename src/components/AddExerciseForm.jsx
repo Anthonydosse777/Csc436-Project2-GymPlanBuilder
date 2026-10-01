@@ -34,7 +34,7 @@ function AddExerciseForm({ onAddExercise }) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="add-exercise-form" onSubmit={handleSubmit}>
       <input
         type="text"
         placeholder="Name"
@@ -64,8 +64,8 @@ function AddExerciseForm({ onAddExercise }) {
         value={description}
         onChange={(e) => setDescription(e.target.value)}
       />
-      {showError && <p>Name and description are required.</p>}
-      <button type="submit">Add Exercise</button>
+      {showError && <p className="form-error">Name and description are required.</p>}
+      <button className="form-submit" type="submit">Add Exercise</button>
     </form>
   )
 }

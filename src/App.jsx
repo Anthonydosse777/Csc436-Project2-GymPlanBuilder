@@ -23,7 +23,7 @@ function App() {
   return (
     <>
       <Header planName="My Workout Plan" />
-      <main>
+      <main className="app-layout">
         <ExerciseLibrary plan={plan} onAddToPlan={handleAddToPlan} />
         <PlanPanel plan={plan} onRemoveFromPlan={handleRemoveFromPlan} />
       </main>

@@ -2,7 +2,7 @@ const GROUPS = ['All', 'Push', 'Pull', 'Legs', 'Core']
 
 function FilterBar({ activeGroup, onSelect }) {
   return (
-    <div>
+    <div className="filter-bar">
       {GROUPS.map((group) => (
         <button
           key={group}

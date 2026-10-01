@@ -3,9 +3,9 @@ import PlanItem from './PlanItem'
 
 function PlanPanel({ plan, onRemoveFromPlan }) {
   return (
-    <div>
+    <div className="plan-panel">
       {plan.length === 0 ? (
-        <p>Your plan is empty. Add exercises from the library.</p>
+        <p className="empty-message">Your plan is empty. Add exercises from the library.</p>
       ) : (
         plan.map((exercise) => (
           <PlanItem

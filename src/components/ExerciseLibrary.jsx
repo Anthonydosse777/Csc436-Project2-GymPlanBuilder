@@ -22,9 +22,10 @@ function ExerciseLibrary({ plan, onAddToPlan }) {
   )
 
   return (
-    <div>
+    <div className="exercise-library">
       <FilterBar activeGroup={activeGroup} onSelect={(group) => setActiveGroup(group)} />
       <input
+        className="search-input"
         type="text"
         placeholder="Search exercises..."
         value={searchTerm}
@@ -32,7 +33,7 @@ function ExerciseLibrary({ plan, onAddToPlan }) {
       />
       <AddExerciseForm onAddExercise={handleAddExercise} />
       {filteredExercises.length === 0 ? (
-        <p>No exercises match your search.</p>
+        <p className="empty-message">No exercises match your search.</p>
       ) : (
         filteredExercises.map((exercise) => {
           const isAdded = plan.some((item) => item.id === exercise.id)
