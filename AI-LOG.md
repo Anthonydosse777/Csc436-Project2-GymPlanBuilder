@@ -147,3 +147,17 @@ In the gym-plan-builder React project, add a form for users to create their own 
 
 Do not modify App.jsx, PlanPanel.jsx, PlanItem.jsx, PlanSummary.jsx, or exercises.js.
 Never mutate arrays directly — always create new ones.
+
+
+## 2026-10-01
+Prompt:
+In the gym-plan-builder React project, restyle the app to match a dark, premium 
+fitness-brand aesthetic (dark charcoal background, gold/amber accent color, bold 
+uppercase headings, cards with a colored left-border accent). Updated CSS custom 
+properties for the dark color theme, restyled the header, cards, buttons, filter pills, 
+inputs, and icons to use the new palette while preserving existing layout, spacing, 
+shadows, and animations from prior styling passes.
+
+Reviewed: Confirmed text contrast is readable on the dark background, checked desktop 
+and mobile widths, and confirmed all existing functionality (search, filter, add/remove, 
+custom exercise form) still works after the restyle.
