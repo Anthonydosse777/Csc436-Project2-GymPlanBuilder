@@ -6,6 +6,7 @@ import PlanPanel from './components/PlanPanel'
 
 function App() {
   const [plan, setPlan] = useState([])
+  const [planName, setPlanName] = useState('My Workout Plan')
 
   function handleAddToPlan(exercise) {
     setPlan((prevPlan) => {
@@ -22,10 +23,10 @@ function App() {
 
   return (
     <>
-      <Header planName="My Workout Plan" />
+      <Header planName={planName} onPlanNameChange={setPlanName} />
       <main className="app-layout">
         <ExerciseLibrary plan={plan} onAddToPlan={handleAddToPlan} />
-        <PlanPanel plan={plan} onRemoveFromPlan={handleRemoveFromPlan} />
+        <PlanPanel planName={planName} plan={plan} onRemoveFromPlan={handleRemoveFromPlan} />
       </main>
     </>
   )

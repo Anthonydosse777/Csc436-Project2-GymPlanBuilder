@@ -38,7 +38,7 @@ function MuscleIcon({ muscleGroup }) {
       strokeLinecap="round"
       strokeLinejoin="round"
       role="img"
-      aria-label={`${muscleGroup} icon`}
+      aria-label={`${muscleGroup} exercise`}
     >
       {icons[muscleGroup] ?? icons.Core}
     </svg>
