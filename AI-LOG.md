@@ -161,3 +161,22 @@ shadows, and animations from prior styling passes.
 Reviewed: Confirmed text contrast is readable on the dark background, checked desktop 
 and mobile widths, and confirmed all existing functionality (search, filter, add/remove, 
 custom exercise form) still works after the restyle.
+
+## 2026-10-03
+Prompt:
+In the gym-plan-builder React project, restyle the app to match the visual direction of 
+my Project 1 "Gym Starter Guide" site: dark premium fitness brand, black and gold, heavy 
+uppercase typography. Keep all React logic, state, props and component behavior working 
+exactly as-is. Replace the centered header with a sticky top nav (brand name, 2px gold 
+bottom line, theme toggle), add a hero card holding the editable plan name as a large gold 
+headline with real intro copy, give section headings a gold bar and rule, add a dark/light 
+theme toggle remembered in localStorage, use Poppins 800/700 and Inter, share one card style, 
+turn the plan summary into a stat card, and add an IntersectionObserver scroll reveal 
+(src/hooks/useReveal.js) plus a 3D hover tilt on exercise cards, all disabled under 
+prefers-reduced-motion. Use CSS custom properties, no repeated blocks, no horizontal scroll 
+at 375px, visible focus outlines, and 4.5:1 text contrast in both themes.
+
+Reviewed: Ran npm run build successfully. Checked in headless Chrome at 375px and 1280px in 
+both themes: no horizontal scroll, no console errors, theme persists across reloads, 
+add/remove, rename, filter and search still work, and reduced motion shows all content 
+immediately. Checked text contrast ratios for both palettes (all at least 4.5:1).
