@@ -33,8 +33,10 @@ npm run build, publish directory dist).
 
 | File / Folder | Contents |
 |---|---|
-| src/App.jsx | Root component — holds the plan and plan name state, renders Header, ExerciseLibrary, and PlanPanel |
-| src/components/Header.jsx | Editable plan name (controlled input) |
+| src/App.jsx | Root component — holds the plan, plan name and theme state, renders Header, Hero, ExerciseLibrary, and PlanPanel |
+| src/components/Header.jsx | Sticky top nav with the brand name and theme toggle |
+| src/components/ThemeToggle.jsx | Pill button that switches between the dark and light themes |
+| src/components/Hero.jsx | Hero card with the editable plan name (controlled input) |
 | src/components/ExerciseLibrary.jsx | Search, muscle-group filter, renders the exercise list |
 | src/components/FilterBar.jsx | Muscle group filter pills |
 | src/components/ExerciseCard.jsx | A single exercise with its "Add to Plan" button |
@@ -43,15 +45,16 @@ npm run build, publish directory dist).
 | src/components/PlanPanel.jsx | The user's current plan, renders PlanItem and PlanSummary |
 | src/components/PlanItem.jsx | A single exercise in the plan, with a Remove button |
 | src/components/PlanSummary.jsx | Live totals: exercise count and muscle groups covered |
+| src/hooks/useReveal.js | Custom hook that fades elements in once as they scroll into view |
 | src/data/exercises.js | The built-in exercise library (16 exercises, 4 per muscle group) |
 | AI-LOG.md | Log of AI-assisted prompts used while building this project |
 
 ## How the project meets the brief
 
-Components. Nine components, each in its own file, each receiving data through props 
+Components. Eleven components, each in its own file, each receiving data through props 
 rather than hardcoding its own content.
 
-State. Five independent pieces of useState: plan and planName in App, searchTerm and 
+State. Six independent pieces of useState: plan, planName and theme in App, searchTerm and 
 activeGroup in ExerciseLibrary, and customExercises also in ExerciseLibrary. State is 
 never mutated directly — every update builds a new array or value with spread/filter/map.
 
@@ -65,7 +68,7 @@ their values live in state, not the DOM.
 
 Lifted state. plan is owned by App and shared between ExerciseLibrary (to know which 
 exercises are already added) and PlanPanel (to display them). planName is owned by App 
-and shared between Header (where it's edited) and PlanPanel (where it's also displayed), 
+and shared between Hero (where it's edited) and PlanPanel (where it's also displayed), 
 so both stay in sync.
 
 Conditional rendering. An empty-plan message, a "no exercises match your search" message, 
