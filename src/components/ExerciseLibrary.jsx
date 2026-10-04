@@ -23,6 +23,7 @@ function ExerciseLibrary({ plan, onAddToPlan }) {
 
   return (
     <div className="exercise-library">
+      <h2 className="section-heading">Exercise Library</h2>
       <FilterBar activeGroup={activeGroup} onSelect={(group) => setActiveGroup(group)} />
       <label className="sr-only" htmlFor="exercise-search">Search exercises</label>
       <input

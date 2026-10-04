@@ -1,17 +1,12 @@
-function Header({ planName, onPlanNameChange }) {
+import ThemeToggle from './ThemeToggle'
+
+function Header({ theme, onToggleTheme }) {
   return (
-    <header className="app-header">
-      <h1>
-        <label className="sr-only" htmlFor="plan-name">Plan name</label>
-        <input
-          id="plan-name"
-          className="plan-name-input"
-          type="text"
-          value={planName}
-          placeholder="Name your plan"
-          onChange={(e) => onPlanNameChange(e.target.value)}
-        />
-      </h1>
+    <header className="site-nav">
+      <div className="container nav-inner">
+        <p className="brand">Gym Plan Builder</p>
+        <ThemeToggle theme={theme} onToggle={onToggleTheme} />
+      </div>
     </header>
   )
 }
