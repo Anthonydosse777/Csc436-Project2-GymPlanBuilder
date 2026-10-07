@@ -8,6 +8,8 @@ function AddExerciseForm({ onAddExercise }) {
   const [description, setDescription] = useState('')
   const [showError, setShowError] = useState(false)
   const id = useId()
+  const nameError = showError && name.trim() === ''
+  const descriptionError = showError && description.trim() === ''
 
   function handleSubmit(e) {
     e.preventDefault()
@@ -36,14 +38,21 @@ function AddExerciseForm({ onAddExercise }) {
 
   return (
     <form className="card form-grid add-exercise-form" onSubmit={handleSubmit}>
-      <label className="sr-only" htmlFor={`${id}-name`}>Exercise name</label>
-      <input
-        id={`${id}-name`}
-        type="text"
-        placeholder="Name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
+      <div className="field">
+        <label className="sr-only" htmlFor={`${id}-name`}>Exercise name</label>
+        <input
+          id={`${id}-name`}
+          type="text"
+          placeholder="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          aria-invalid={nameError || undefined}
+          aria-describedby={nameError ? `${id}-name-error` : undefined}
+        />
+        {nameError && (
+          <p className="form-error" id={`${id}-name-error`} role="alert">Enter a name for the exercise.</p>
+        )}
+      </div>
       <label className="sr-only" htmlFor={`${id}-muscleGroup`}>Muscle group</label>
       <select id={`${id}-muscleGroup`} value={muscleGroup} onChange={(e) => setMuscleGroup(e.target.value)}>
         <option value="Push">Push</option>
@@ -68,12 +77,19 @@ function AddExerciseForm({ onAddExercise }) {
       <label className="sr-only" htmlFor={`${id}-description`}>Description</label>
       <input
         id={`${id}-description`}
+        className="form-description"
         type="text"
         placeholder="Description"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
+        aria-invalid={descriptionError || undefined}
+        aria-describedby={descriptionError ? `${id}-description-error` : undefined}
       />
-      {showError && <p className="form-error" role="alert">Name and description are required.</p>}
+      {descriptionError && (
+        <p className="form-error" id={`${id}-description-error`} role="alert">
+          Enter a short description of how to perform it.
+        </p>
+      )}
       <button className="form-submit" type="submit">Add Exercise</button>
     </form>
   )
