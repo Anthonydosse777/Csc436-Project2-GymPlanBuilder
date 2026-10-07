@@ -1,7 +1,7 @@
-function PlanItem({ item, onUpdate, onRemove, onMove }) {
+function PlanItem({ item, onRemove }) {
   return (
-    <div className="card plan-item">
-      <span className="plan-item-name">{item.name}</span>
+    <div className="card list-row">
+      <span className="list-row-title">{item.name}</span>
       <button className="remove-button" type="button" onClick={onRemove} aria-label={`Remove ${item.name}`}>Remove</button>
     </div>
   )

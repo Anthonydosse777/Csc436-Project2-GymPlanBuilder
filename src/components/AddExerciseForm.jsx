@@ -35,7 +35,7 @@ function AddExerciseForm({ onAddExercise }) {
   }
 
   return (
-    <form className="card add-exercise-form" onSubmit={handleSubmit}>
+    <form className="card form-grid add-exercise-form" onSubmit={handleSubmit}>
       <label className="sr-only" htmlFor={`${id}-name`}>Exercise name</label>
       <input
         id={`${id}-name`}

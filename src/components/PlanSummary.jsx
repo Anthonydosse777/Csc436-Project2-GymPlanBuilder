@@ -2,7 +2,7 @@ function PlanSummary({ plan }) {
   const muscleGroups = [...new Set(plan.map((exercise) => exercise.muscleGroup))]
 
   return (
-    <div className="plan-summary">
+    <div className="stat-card plan-summary">
       <p className="stat">
         <span className="stat-value">{plan.length}</span>
         <span className="stat-label">Total exercises</span>

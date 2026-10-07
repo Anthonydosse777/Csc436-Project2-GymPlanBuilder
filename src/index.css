@@ -49,6 +49,7 @@
   --space-xl: 2rem;
   --space-2xl: 3rem;
   --gutter: var(--space-lg);
+  --card-padding: var(--space-lg);
   --nav-height: 4rem;
 
   /* Shape */
@@ -143,6 +144,10 @@ button:disabled {
   cursor: not-allowed;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -163,6 +168,7 @@ button:disabled {
 @media (max-width: 480px) {
   :root {
     --gutter: var(--space-md);
+    --card-padding: var(--space-md);
   }
 }
 

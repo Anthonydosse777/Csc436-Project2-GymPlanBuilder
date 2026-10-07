@@ -28,7 +28,7 @@ function ExerciseLibrary({ plan, onAddToPlan }) {
       <label className="sr-only" htmlFor="exercise-search">Search exercises</label>
       <input
         id="exercise-search"
-        className="search-input"
+        className="input search-input"
         type="text"
         placeholder="Search exercises..."
         value={searchTerm}
