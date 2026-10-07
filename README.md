@@ -1,7 +1,8 @@
 # Gym Plan Builder
 
 An interactive React app where users browse an exercise library, build a personal workout 
-plan, and track it with a live summary.
+plan, and track it with a live summary. A built-in workout log records sets, reps and 
+weight for each session and charts progress over time.
 
 Built for CSC 436 · Full-Stack Web Development · Project 2: React Fundamentals.
 
@@ -33,43 +34,48 @@ npm run build, publish directory dist).
 
 | File / Folder | Contents |
 |---|---|
+| src/main.jsx | Entry point — mounts App inside React's StrictMode and loads index.css |
 | src/App.jsx | Root component — holds the plan, plan name, theme, active view and workout log state, renders Header, Hero, ViewTabs, the builder view and WorkoutLog |
-| src/components/Header.jsx | Sticky top nav with the brand name and theme toggle |
-| src/components/ThemeToggle.jsx | Pill button that switches between the dark and light themes |
-| src/components/Hero.jsx | Hero card with the editable plan name (controlled input) |
-| src/components/ViewTabs.jsx | Pill buttons that switch between the Plan Builder and Workout Log views |
+| src/App.css | Component styles: layout, cards, pills, forms, plan panel, workout log, chart, responsive rules |
+| src/index.css | Theme tokens (dark and light), base element styles, focus outlines, reduced-motion rules |
+| src/components/AddExerciseForm.jsx | Form for creating a custom exercise |
+| src/components/ExerciseCard.jsx | A single exercise with its "Add to Plan" button |
 | src/components/ExerciseLibrary.jsx | Search, muscle-group filter, renders the exercise list |
 | src/components/FilterBar.jsx | Muscle group filter pills |
-| src/components/ExerciseCard.jsx | A single exercise with its "Add to Plan" button |
-| src/components/MuscleIcon.jsx | Small SVG icon per muscle group |
-| src/components/AddExerciseForm.jsx | Form for creating a custom exercise |
-| src/components/PlanPanel.jsx | The user's current plan, renders PlanItem and PlanSummary |
-| src/components/PlanItem.jsx | A single exercise in the plan, with a Remove button |
-| src/components/PlanSummary.jsx | Live totals: exercise count and muscle groups covered |
-| src/components/WorkoutLog.jsx | Workout Log view layout: LogForm, ProgressPanel and LogHistory |
+| src/components/Header.jsx | Sticky top nav with the brand name and theme toggle |
+| src/components/Hero.jsx | Hero card with the editable plan name (controlled input) |
 | src/components/LogForm.jsx | Form for logging a workout (date, exercise, sets, reps, weight, unit) with validation |
 | src/components/LogHistory.jsx | Logged workouts grouped by date, with an exercise filter and Delete buttons |
+| src/components/MuscleIcon.jsx | Small SVG icon per muscle group |
+| src/components/PlanItem.jsx | A single exercise in the plan, with a Remove button |
+| src/components/PlanPanel.jsx | The user's current plan, renders PlanItem and PlanSummary |
+| src/components/PlanSummary.jsx | Live totals: exercise count and muscle groups covered |
 | src/components/ProgressPanel.jsx | Workout stats, personal bests, and a max-weight progress chart per exercise |
+| src/components/ThemeToggle.jsx | Pill button that switches between the dark and light themes |
+| src/components/ViewTabs.jsx | Pill buttons that switch between the Plan Builder and Workout Log views |
+| src/components/WorkoutLog.jsx | Workout Log view layout: LogForm, ProgressPanel and LogHistory |
+| src/data/exercises.js | The built-in exercise library (16 exercises, 4 per muscle group) |
 | src/hooks/useReveal.js | Custom hook that fades elements in once as they scroll into view |
 | src/utils/format.js | Helpers for today's local date, readable date labels, and number formatting |
-| src/data/exercises.js | The built-in exercise library (16 exercises, 4 per muscle group) |
 | AI-LOG.md | Log of AI-assisted prompts used while building this project |
 
 ## How the project meets the brief
 
-Components. Sixteen components (plus App), each in its own file, each receiving data through props 
-rather than hardcoding its own content.
+Components. Sixteen components (plus App), each in its own file, each receiving data 
+through props rather than hardcoding its own content.
 
 State. Twenty-three pieces of useState across the components: plan, planName, theme, 
 activeView and workoutLog in App; searchTerm, activeGroup and customExercises in 
 ExerciseLibrary; name, muscleGroup, equipment, difficulty, description and showError in 
 AddExerciseForm; date, exerciseName, sets, reps, weight, unit and errors in LogForm; 
 exerciseFilter in LogHistory; and chartKey in ProgressPanel. The useReveal hook also keeps 
-one isVisible state for each element it animates. State is never mutated directly — every update builds a new array or value with spread/filter/map.
+one isVisible state for each element it animates. State is never mutated directly — every 
+update builds a new array or value with spread/filter/map.
 
 Lists. The exercise library, the plan list and the workout history are rendered with 
-.map(), keyed by each exercise's or log entry's unique id (not array index), so React can track items correctly even as 
-the list is filtered, reordered, or items are added/removed.
+.map(), keyed by each exercise's or log entry's unique id (not array index), so React 
+can track items correctly even as the list is filtered, reordered, or items are 
+added/removed.
 
 Controlled inputs. The search box, the plan name field, and all five fields of the custom 
 exercise form (name, muscle group, equipment, difficulty, description) are controlled — 
@@ -82,10 +88,16 @@ and shared between Hero (where it's edited) and PlanPanel (where it's also displ
 so both stay in sync. workoutLog is owned by App and shared with LogForm (to add entries), 
 LogHistory (to list and delete them) and ProgressPanel (to compute stats and the chart).
 
-Conditional rendering. An empty-plan message, a "no exercises match your search" message, 
-the "Added ✓" vs. "Add to Plan" button state, the custom-exercise form's required-fields 
-validation message, and the plan summary's balanced-plan note all render conditionally 
-based on current state.
+Conditional rendering. In the builder: an empty-plan message, a "no exercises match your 
+search" message, the "Added ✓" vs. "Add to Plan" button state, the custom-exercise form's 
+name and description error messages, and the plan summary's balanced-plan note. Across the 
+app: the view tabs show either the Plan Builder or the Workout Log, and the theme toggle's 
+label switches between "White background" and "Black background". In the workout log: 
+per-field error messages on the log form, an empty-history message, a "no entries match" 
+message when the exercise filter is empty, a separate total-volume card for each unit 
+logged, a message when there is nothing to chart yet, and a "log this exercise on more 
+days" message when a chosen exercise has fewer than two dates. All of these render 
+conditionally based on current state.
 
 What the app does. This isn't a page of disconnected widgets — adding an exercise in the 
 library immediately updates the plan panel, the plan summary, and the "Added ✓" state on 
