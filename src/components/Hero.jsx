@@ -7,7 +7,9 @@ function Hero({ planName, onPlanNameChange }) {
     <section ref={revealRef} className={`hero reveal${isVisible ? ' is-visible' : ''}`}>
       <div className="hero-content">
         <p className="eyebrow">Your personal program</p>
-        <h1 className="hero-title">
+        {/* The visible headline is the input, so the h1 itself only carries the name for screen readers. */}
+        <div className="hero-title">
+          <h1 className="sr-only">{planName.trim() || 'Untitled Plan'}</h1>
           <label className="sr-only" htmlFor="plan-name">Plan name</label>
           <input
             id="plan-name"
@@ -17,7 +19,7 @@ function Hero({ planName, onPlanNameChange }) {
             placeholder="Name your plan"
             onChange={(e) => onPlanNameChange(e.target.value)}
           />
-        </h1>
+        </div>
         <p className="hero-text">
           Browse the exercise library, filter by Push, Pull, Legs or Core, and add the movements
           that fit your goals. Every exercise lists its equipment and difficulty, so you can match
