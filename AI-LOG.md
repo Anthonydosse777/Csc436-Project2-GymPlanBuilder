@@ -50,6 +50,7 @@ import chain so everything renders without console errors. Do not add styling or
 logic yet. Do not modify src/data/exercises.js.
 
 ## 2026-09-25
+Prompt:
 In the gym-plan-builder React project, wire up the "add to plan" feature using lifted state.
 
 1. In src/App.jsx:
@@ -89,7 +90,7 @@ In the gym-plan-builder React project, wire up the "add to plan" feature using l
 Do not add styling yet. Do not modify FilterBar.jsx, PlanSummary.jsx, or exercises.js.
 Never mutate state directly — always create new arrays.
 
-## 2026-09-28
+## 2026-09-29
 Prompt:
 In the gym-plan-builder React project, wire up search and filtering in the exercise library.
 
@@ -180,3 +181,64 @@ Reviewed: Ran npm run build successfully. Checked in headless Chrome at 375px an
 both themes: no horizontal scroll, no console errors, theme persists across reloads, 
 add/remove, rename, filter and search still work, and reduced motion shows all content 
 immediately. Checked text contrast ratios for both palettes (all at least 4.5:1).
+
+
+## 2026-10-03
+Prompt:
+In the gym-plan-builder React project, restyle the app to match this visual direction 
+(modeled on my Project 1 "Gym Starter Guide" site): dark premium fitness brand, black 
+and gold, heavy uppercase typography. Keep all React logic, state, props and component 
+behavior working exactly as-is. Do not copy any files from another project and do not 
+use any external image URLs.
+
+1. TOP NAV: Replace the centered header with a sticky top bar: bold uppercase brand name 
+   on the left ("GYM PLAN BUILDER"), a thin 2px gold line along its bottom edge, and a 
+   theme toggle button on the right (see 4). Keep the editable plan name input working 
+   by placing it in the hero (see 2).
+
+2. HERO CARD: Below the nav, add a rounded hero card (large radius, 1px subtle border, 
+   dark gradient background with a faint diagonal-stripe or radial-gold-glow pattern 
+   done in pure CSS, no images). Inside: a small gold uppercase eyebrow label with wide 
+   letter-spacing and a short gold underline, then the plan name as the large heavy 
+   uppercase gold headline (this is the existing controlled input, styled to look like 
+   a headline with a soft text-shadow and a visible focus outline), then two short 
+   paragraphs of real copy about building a personal workout plan from the exercise 
+   library (no placeholder text). Hero text column max-width around 38rem.
+
+3. SECTION HEADINGS: Give the library heading and the plan heading a short gold vertical 
+   bar before the text and a thin gold rule underneath, in the style of Project 1.
+
+4. THEME TOGGLE: Dark theme by default plus a light theme. Add a theme useState in 
+   App.jsx that sets a data-theme attribute on document.documentElement, remembered in 
+   localStorage (wrap all reads and writes in try/catch). Create 
+   src/components/ThemeToggle.jsx: a pill button in the nav labeled "White background" 
+   in dark mode and "Black background" in light mode, with aria-pressed. The light theme 
+   uses a white page, and a darker gold (about #8a6a12) so gold text keeps at least 
+   4.5:1 contrast.
+
+5. TYPOGRAPHY: Use Poppins at weight 800 for the hero headline and 700 for headings, 
+   uppercase with letter-spacing on the nav and eyebrow, Inter for body text. Add 
+   weight 800 to the existing Google Fonts link in index.html if needed.
+
+6. CARDS AND PANELS: Exercise cards, the add-exercise form, plan panel and plan items 
+   share one card style (rounded, subtle border, soft shadow). The plan summary uses a 
+   stat-card look: gold left border, large gold numbers for the total, and muted labels. 
+   Filter pills and buttons stay gold-on-dark with the existing hover and active states.
+
+7. ANIMATIONS: Add a scroll-reveal for the hero, library cards and plan panel using 
+   IntersectionObserver in a small custom hook at src/hooks/useReveal.js (fade and slide 
+   up, once only). Add a subtle 3D tilt toward the mouse on exercise cards on hover, 
+   skipped on touch devices. prefers-reduced-motion must disable every animation, 
+   transition and tilt, and show all content immediately.
+
+8. RULES: Use CSS custom properties and shared classes, with no repeated CSS blocks, and 
+   remove any rules that are no longer used. No console errors. No horizontal scrolling 
+   at 375px (hero stacks, nav wraps or shrinks cleanly). Visible :focus-visible outlines 
+   on every interactive element. Text contrast of at least 4.5:1 in both themes. 
+   Keep MuscleIcon on exercise cards. Do not change the logic of plan, search, filter, 
+   custom exercise or plan name features. Run npm run build at the end and confirm it 
+   succeeds.
+
+Reviewed: Tested both themes and the toggle after a refresh, plus search, filters, 
+add/remove, the custom exercise form and plan name editing. Checked focus outlines, 375px 
+width, and confirmed npm run build succeeds with no console errors.
